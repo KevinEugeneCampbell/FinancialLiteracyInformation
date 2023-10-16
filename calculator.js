@@ -26,12 +26,52 @@ document.getElementById("mySubmit").onclick = function(){
     document.getElementById("myP").textContent = `Welcome ${username}`;
 }
 */
-var compoundObject = {"Monthly":{},"Annually":{}};
+let compoundObject = ["Annually","Semiannually","Quarterly",
+"Monthly","Semimonthly","Biweekly","Weekly","Daily"];
 let compoundSel;
+let principal;
+let ir;
+let t;
 window.onload =  function(){
     var compoundSel = document.getElementById("compound");
-    for(var x in compoundObject){
-        compoundSel.options[compoundSel.options.length] =  new Option(x, x);
+    for(let i = 0; i < compoundObject.length; i++){
+        compoundSel.options[compoundSel.options.length] =  new Option(compoundObject[i], compoundObject[i]);
     }
 }
-console.log(compoundSel);
+console.log(compoundSel)
+document.getElementById("mySubmit").onclick = function(){
+    principal = document.getElementById("p").value;
+    ir = document.getElementById("ir").value;
+    t = document.getElementById("ily").value;
+    compoundSel = document.getElementById("compound").value;
+    if (compoundSel === "Monthly"){
+        compoundSel = 12;
+    }
+    else if (compoundSel === "Daily"){
+        compoundSel = 365;
+    }
+    else if (compoundSel === "Weekly"){
+        compoundSel = 52;
+    }
+    else if (compoundSel === "Biweekly"){
+        compoundSel = 26;
+    }
+    else if (compoundSel === "Semimonthly"){
+        compoundSel = 24;
+    }
+    else if (compoundSel === "Quarterly"){
+        compoundSel = 4;
+    }
+    else if (compoundSel === "Semiannually"){
+        compoundSel = 2;
+    }
+    else if (compoundSel === "Annually"){
+        compoundSel = 1;
+    }
+    let r = ir / 100;
+    let n = compoundSel;
+    let a = principal * (1 + (r / n)) ** (n*t);
+    document.getElementById("myP").textContent = "Total Balance: "+ a.toFixed(2);
+    document.getElementById("myP2").textContent = "Total Accrued Interest:  "+ (a.toFixed(2) -  principal).toFixed(2);
+
+}
