@@ -32,12 +32,6 @@ let compoundSel;
 let principal;
 let ir;
 let t;
-window.onload =  function(){
-    var compoundSel = document.getElementById("compound");
-    for(let i = 0; i < compoundObject.length; i++){
-        compoundSel.options[compoundSel.options.length] =  new Option(compoundObject[i], compoundObject[i]);
-    }
-}
 console.log(compoundSel)
 document.getElementById("mySubmit").onclick = function(){
     principal = document.getElementById("p").value;
